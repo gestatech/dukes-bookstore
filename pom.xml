@@ -22,6 +22,7 @@
         <primefaces.version>6.1</primefaces.version>
         <maven.ejb.spec.version>3.2</maven.ejb.spec.version>
         <junit.version>4.12</junit.version>
+        <mockito.all.version>1.9.5</mockito.all.version>
         <slf4j.api.version>1.7.2</slf4j.api.version>
         <mysql.version>6.0.6</mysql.version>
 
@@ -121,6 +122,12 @@
                 <version>${junit.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${mockito.all.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.primefaces</groupId>
                 <artifactId>primefaces</artifactId>
                 <version>${primefaces.version}</version>
@@ -195,6 +202,15 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven.surefire.plugin.version}</version>
+                    <configuration>
+                        <classpathDependencyExcludes>
+                            <!-- exclude code absent api : avoid some ClassFormatError due to crappy javaee jars-->
+                            <classpathDependencyExclude>javax:javaee-api</classpathDependencyExclude>
+                        </classpathDependencyExcludes>
+                        <includes>
+                            <include>**/*IT.java</include>
+                        </includes>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

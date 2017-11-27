@@ -33,6 +33,7 @@
                         <webModule>
                             <groupId>be.gestatech</groupId>
                             <artifactId>bookstore-web</artifactId>
+                            <contextRoot>/web</contextRoot>
                         </webModule>
                         <ejbModule>
                             <groupId>be.gestatech</groupId>

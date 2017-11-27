@@ -8,5 +8,5 @@ import java.util.List;
 @Local
 public interface ProgrammingLanguageService {
 
-    List<ProgrammingLanguage> getAllLangs();
+    List<ProgrammingLanguage> getAll();
 }

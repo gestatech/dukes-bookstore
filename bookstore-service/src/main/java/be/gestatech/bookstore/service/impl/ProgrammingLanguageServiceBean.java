@@ -10,7 +10,7 @@ import java.util.List;
 @Stateless
 public class ProgrammingLanguageServiceBean implements ProgrammingLanguageService {
     @Override
-    public List<ProgrammingLanguage> getAllLangs() {
+    public List<ProgrammingLanguage> getAll() {
         List<ProgrammingLanguage> result = new ArrayList<>();
         ProgrammingLanguage java = new ProgrammingLanguage("java","James Gosling", 1995);
         ProgrammingLanguage cLang = new ProgrammingLanguage("c"," Dennis Ritchie", 1972);
