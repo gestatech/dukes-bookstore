@@ -14,7 +14,7 @@
     <description>JPA entities for our project - domain model</description>
 
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>${project.artifactId}-${project.version}</finalName>
     </build>
 
     <dependencies>
