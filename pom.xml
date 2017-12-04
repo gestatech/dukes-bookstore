@@ -15,16 +15,18 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <!-- Java EE dependencies versions -->
+        <!-- Target Java EE 7 server -->
         <javaee.api.version>7.0</javaee.api.version>
 
-        <!-- Other dependencies versions -->
+        <!-- Runtime dependencies -->
         <primefaces.version>6.1</primefaces.version>
-        <maven.ejb.spec.version>3.2</maven.ejb.spec.version>
-        <junit.version>4.12</junit.version>
-        <mockito.all.version>1.9.5</mockito.all.version>
         <slf4j.api.version>1.7.2</slf4j.api.version>
         <mysql.version>6.0.6</mysql.version>
+
+        <!-- Test dependencies -->
+        <junit.version>4.12</junit.version>
+        <mockito.all.version>1.9.5</mockito.all.version>
+        <dbunit.version>2.5.4</dbunit.version>
 
         <!-- Maven core plugins versions -->
         <maven.clean.plugin.version>3.0.0</maven.clean.plugin.version>
@@ -39,8 +41,8 @@
         <maven.exec.plugin.version>1.2.1</maven.exec.plugin.version>
 
         <!-- Maven packaging plugins versions -->
-        <maven.ear.plugin.version>2.10.1</maven.ear.plugin.version>
         <maven.ejb.plugin.version>3.0.0</maven.ejb.plugin.version>
+        <maven.ear.plugin.version>2.10.1</maven.ear.plugin.version>
         <maven.jar.plugin.version>3.0.2</maven.jar.plugin.version>
         <maven.rar.plugin.version>2.4</maven.rar.plugin.version>
         <maven.war.plugin.version>3.2.0</maven.war.plugin.version>
@@ -101,11 +103,14 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Target Java EE 7 server -->
             <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
                 <version>${javaee.api.version}</version>
             </dependency>
+
+            <!-- Internal dependencies -->
             <dependency>
                 <groupId>be.gestatech</groupId>
                 <artifactId>bookstore-domain</artifactId>
@@ -116,6 +121,70 @@
                 <artifactId>bookstore-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!-- Runtime dependencies -->
+            <dependency>
+                <groupId>org.primefaces</groupId>
+                <artifactId>primefaces</artifactId>
+                <version>${primefaces.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.soteria</groupId>
+                <artifactId>javax.security.enterprise</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.omnifaces</groupId>
+                <artifactId>omnisecurity-cdi-auth-events-undertow</artifactId>
+                <version>10.0.0.Final-u1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.omnifaces</groupId>
+                <artifactId>omnifaces</artifactId>
+                <version>2.6.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.omnifaces</groupId>
+                <artifactId>omnisettings</artifactId>
+                <version>0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.omnifaces</groupId>
+                <artifactId>omniutils</artifactId>
+                <version>0.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.omnifaces</groupId>
+                <artifactId>omnipersistence</artifactId>
+                <version>0.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.omnifaces</groupId>
+                <artifactId>optimusfaces</artifactId>
+                <version>0.5</version>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.4.196</version>
+            </dependency>
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-core</artifactId>
+                <version>9.1.1.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.api.version}</version>
+            </dependency>
+
+            <!-- Test dependencies	-->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -128,24 +197,15 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.primefaces</groupId>
-                <artifactId>primefaces</artifactId>
-                <version>${primefaces.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.api.version}</version>
+                <groupId>org.dbunit</groupId>
+                <artifactId>dbunit</artifactId>
+                <version>${dbunit.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -177,7 +237,7 @@
                     <artifactId>maven-ejb-plugin</artifactId>
                     <version>${maven.ejb.plugin.version}</version>
                     <configuration>
-                        <ejbVersion>${maven.ejb.spec.version}</ejbVersion>
+                        <ejbVersion>3.2</ejbVersion>
                     </configuration>
                 </plugin>
                 <plugin>
