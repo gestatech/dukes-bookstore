@@ -17,11 +17,20 @@
 
         <!-- Target Java EE 7 server -->
         <javaee.api.version>7.0</javaee.api.version>
+        <javax.security.version>1.0</javax.security.version>
 
         <!-- Runtime dependencies -->
         <primefaces.version>6.1</primefaces.version>
-        <slf4j.api.version>1.7.2</slf4j.api.version>
+        <omnisecurity.cdi.auth.events.undertow.version>10.0.0.Final-u1</omnisecurity.cdi.auth.events.undertow.version>
+        <omnifaces.version>2.6.6</omnifaces.version>
+        <omnisettings.version>0.1</omnisettings.version>
+        <omniutils.version>0.6</omniutils.version>
+        <omnipersistence.version>0.4</omnipersistence.version>
+        <optimusfaces.version>0.5</optimusfaces.version>
+        <infinispan.core.version>9.1.1.Final</infinispan.core.version>
+        <h2.version>1.4.196</h2.version>
         <mysql.version>6.0.6</mysql.version>
+        <slf4j.api.version>1.7.2</slf4j.api.version>
 
         <!-- Test dependencies -->
         <junit.version>4.12</junit.version>
@@ -109,6 +118,11 @@
                 <artifactId>javaee-api</artifactId>
                 <version>${javaee.api.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.glassfish.soteria</groupId>
+                <artifactId>javax.security.enterprise</artifactId>
+                <version>${javax.security.version}</version>
+            </dependency>
 
             <!-- Internal dependencies -->
             <dependency>
@@ -129,49 +143,44 @@
                 <version>${primefaces.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.glassfish.soteria</groupId>
-                <artifactId>javax.security.enterprise</artifactId>
-                <version>1.0</version>
-            </dependency>
-            <dependency>
                 <groupId>org.omnifaces</groupId>
                 <artifactId>omnisecurity-cdi-auth-events-undertow</artifactId>
-                <version>10.0.0.Final-u1</version>
+                <version>${omnisecurity.cdi.auth.events.undertow.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.omnifaces</groupId>
                 <artifactId>omnifaces</artifactId>
-                <version>2.6.6</version>
+                <version>${omnifaces.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.omnifaces</groupId>
                 <artifactId>omnisettings</artifactId>
-                <version>0.1</version>
+                <version>${omnisettings.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.omnifaces</groupId>
                 <artifactId>omniutils</artifactId>
-                <version>0.6</version>
+                <version>${omniutils.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.omnifaces</groupId>
                 <artifactId>omnipersistence</artifactId>
-                <version>0.4</version>
+                <version>${omnipersistence.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.omnifaces</groupId>
                 <artifactId>optimusfaces</artifactId>
-                <version>0.5</version>
-            </dependency>
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>1.4.196</version>
+                <version>${optimusfaces.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.infinispan</groupId>
                 <artifactId>infinispan-core</artifactId>
-                <version>9.1.1.Final</version>
+                <version>${infinispan.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>
@@ -194,7 +203,6 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>
                 <version>${mockito.all.version}</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.dbunit</groupId>
@@ -212,10 +220,14 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven.compiler.plugin.version}</version>
+                    <extensions>true</extensions>
                     <configuration>
                         <source>${maven.compiler.source}</source>
                         <target>${maven.compiler.target}</target>
                         <encoding>${project.build.sourceEncoding}</encoding>
+                        <optimize>false</optimize>
+                        <debug>true</debug>
+                        <showDeprecation>true</showDeprecation>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -260,6 +272,24 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven.jar.plugin.version}</version>
+                    <configuration>
+                        <archive>
+                            <addMaveDescriptor>false</addMaveDescriptor>
+                            <manifest>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <X-Compile-Source>${maven.compiler.source}</X-Compile-Source>
+                                <X-Compile-Target>${maven.compiler.target}</X-Compile-Target>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven.surefire.plugin.version}</version>
                     <configuration>
@@ -276,6 +306,7 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>${maven.dependency.plugin.version}</version>
+                    <extensions>true</extensions>
                 </plugin>
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>
