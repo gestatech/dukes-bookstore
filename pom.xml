@@ -1,13 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>be.gestatech</groupId>
     <artifactId>dukes-bookstore-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Java EE DUKES BOOKSTORE APP</name>
-
+    <name>bookstore</name>
     <url>https://github.com/gestatech/duckes-bookstore</url>
+
+    <prerequisites>
+        <maven>3.0.0</maven>
+    </prerequisites>
 
     <scm>
         <url>https://github.com/gestatech/duckes-bookstore</url>
@@ -16,19 +20,26 @@
     </scm>
 
     <properties>
-        <!--  Encoding -->
+        <!-- Java versions. -->
+        <javase.version>1.8</javase.version>
+        <javaee.version>8</javaee.version>
+        <javadoc.version>1.8</javadoc.version>
+
+        <!-- Essential Maven defaults. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.source.excludeResources>true</maven.source.excludeResources>
 
         <!-- Java JDK version -->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>${javase.version}</maven.compiler.source>
+        <maven.compiler.target>${javase.version}</maven.compiler.target>
 
         <!-- Target Java EE 7 server -->
-        <javaee.api.version>7.0</javaee.api.version>
+        <javaee.api.version>${javaee.version}.0</javaee.api.version>
         <javax.security.version>1.0</javax.security.version>
 
         <!-- Runtime dependencies -->
+        <hibernate.core.version>5.2.12.Final</hibernate.core.version>
         <primefaces.version>6.1</primefaces.version>
         <omnisecurity.cdi.auth.events.undertow.version>10.0.0.Final-u1</omnisecurity.cdi.auth.events.undertow.version>
         <omnifaces.version>2.6.6</omnifaces.version>
@@ -110,6 +121,10 @@
         <!-- Other projects maven plugins versions -->
         <wildfly.maven.plugin.version>1.2.1.Final</wildfly.maven.plugin.version>
 
+        <!-- Test server versions. -->
+        <test.wildfly.version>11.0.0.Final</test.wildfly.version> <!-- TODO: update to Java EE 8 compatible version -->
+        <test.tomee.version>7.0.4</test.tomee.version> <!-- TODO: update to Java EE 8 compatible version -->
+        <test.payara.version>5.0.0.Alpha3</test.payara.version>
     </properties>
 
     <modules>
@@ -121,7 +136,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Target Java EE 7 server -->
+            <!-- Target Java EE 8 server -->
             <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
@@ -150,6 +165,11 @@
                 <groupId>org.primefaces</groupId>
                 <artifactId>primefaces</artifactId>
                 <version>${primefaces.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.core.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.omnifaces</groupId>

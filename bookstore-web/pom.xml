@@ -45,14 +45,38 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>${primefaces.version}</version>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnisecurity-cdi-auth-events-undertow</artifactId>
+            <version>${omnisecurity.cdi.auth.events.undertow.version}</version>
         </dependency>
         <dependency>
             <groupId>be.gestatech</groupId>
             <artifactId>bookstore-service</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnisettings</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omniutils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnipersistence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>optimusfaces</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-core</artifactId>
         </dependency>
     </dependencies>
 </project>

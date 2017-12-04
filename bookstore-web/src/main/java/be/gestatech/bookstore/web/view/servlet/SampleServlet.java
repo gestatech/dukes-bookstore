@@ -1,4 +1,4 @@
-package be.gestatech.bookstore.web;
+package be.gestatech.bookstore.web.view.servlet;
 
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
