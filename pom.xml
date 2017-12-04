@@ -5,6 +5,15 @@
     <artifactId>dukes-bookstore-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>Java EE DUKES BOOKSTORE APP</name>
+
+    <url>https://github.com/gestatech/duckes-bookstore</url>
+
+    <scm>
+        <url>https://github.com/gestatech/duckes-bookstore</url>
+        <connection>scm:git:git@github.com:gestatech/duckes-bookstore.git</connection>
+        <developerConnection>scm:git:git@github.com:gestatech/duckes-bookstore.git</developerConnection>
+    </scm>
 
     <properties>
         <!--  Encoding -->
