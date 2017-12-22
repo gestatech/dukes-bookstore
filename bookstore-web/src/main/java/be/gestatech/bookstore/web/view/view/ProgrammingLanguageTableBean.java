@@ -1,4 +1,4 @@
-package be.gestatech.bookstore.web.view.jsf;
+package be.gestatech.bookstore.web.view.view;
 
 import be.gestatech.bookstore.service.api.ProgrammingLanguageService;
 import be.gestatech.bookstore.service.dto.ProgrammingLanguage;

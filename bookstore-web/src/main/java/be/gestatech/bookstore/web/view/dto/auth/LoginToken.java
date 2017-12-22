@@ -1,15 +1,18 @@
 package be.gestatech.bookstore.web.view.dto.auth;
 
+import javax.validation.constraints.Size;
 import java.time.Instant;
 
 public class LoginToken {
 
+    @Size(min=32, max = 32 )
     private byte[] tokenHash;
 
     private Instant created;
 
     private Instant expiration;
 
+    @Size(min=45, max = 45 )
     private String ipAddress;
 
     private String description;

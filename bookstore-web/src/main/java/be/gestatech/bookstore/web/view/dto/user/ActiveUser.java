@@ -1,4 +1,4 @@
-package be.gestatech.bookstore.web.view.producer.dto;
+package be.gestatech.bookstore.web.view.dto.user;
 
 import be.gestatech.bookstore.web.view.dto.auth.Group;
 import be.gestatech.bookstore.web.view.dto.auth.Role;
@@ -12,11 +12,10 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * This is produced by {@link ActiveUserProducer}.
+ * This is produced by {@link be.gestatech.bookstore.web.view.producer.ActiveUserProducer}.
  * This is available in EL by #{activeUser}.
  * This is available in backing beans by {@code @Inject}.
  */
-
 @Named
 @Typed
 public class ActiveUser {

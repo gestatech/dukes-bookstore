@@ -19,27 +19,41 @@
     <description>EAR module</description>
 
     <build>
-        <finalName>${project.artifactId}-${project.version}</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <!--Ear plugin -creating the ear - watch out skinny WARS!-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>
+                <!-- configuring the ear plugin -->
                 <configuration>
-                    <finalName>${project.artifactId}-${project.version}</finalName>
-                    <defaultLibBundleDir>lib/</defaultLibBundleDir>
+                    <finalName>${project.artifactId}</finalName>
+                    <!-- Tell Maven we are using Java EE 7 -->
+                    <version>6</version>
+                    <!--
+                    Use Java EE ear libraries as needed. Java EE ear libraries
+                    are in easy way to package any libraries needed in the ear, and automatically
+                    have any modules (EJB-JARs and WARs) use them
+                     -->
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
                     <modules>
                         <webModule>
-                            <groupId>be.gestatech</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>bookstore-web</artifactId>
                             <contextRoot>/web</contextRoot>
                         </webModule>
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>bookstore-jsf</artifactId>
+                            <contextRoot>/jsf</contextRoot>
+                        </webModule>
                         <ejbModule>
-                            <groupId>be.gestatech</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>bookstore-service</artifactId>
                         </ejbModule>
                     </modules>
+                    <fileNameMapping>no-version</fileNameMapping>
                 </configuration>
             </plugin>
             <plugin>
@@ -48,6 +62,7 @@
                 <configuration>
                     <jboss-home>${wildfly.server.home}-${wildfly.server.version}</jboss-home>
                     <ignoreMissingDeployment>true</ignoreMissingDeployment>
+                    <filename>${project.artifactId}.ear</filename>
                 </configuration>
                 <executions>
                     <!-- Undeploy the application on clean -->
@@ -177,13 +192,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>be.gestatech</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>bookstore-web</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>be.gestatech</groupId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>bookstore-jsf</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>bookstore-service</artifactId>
             <version>${project.version}</version>
             <type>ejb</type>

@@ -11,9 +11,7 @@ import static org.omnifaces.utils.properties.PropertiesUtils.loadXMLPropertiesSt
 
 
 /**
- * Adaptor for the switchable datasource as defined in web.xml to be able to read properties from the
- * <p>
- * right file.
+ * Adaptor for the switchable datasource as defined in web.xml to be able to read properties from the right file.
  */
 public class DataSourceStagedPropertiesFileLoader implements PropertiesFileLoader {
 
@@ -32,7 +30,7 @@ public class DataSourceStagedPropertiesFileLoader implements PropertiesFileLoade
         logger.info("\n\nAbout to install DataSource. \n" +
             "Classname: " + dataSourceProperties.get("className") + "\n" +
             "URL: " + dataSourceProperties.getOrDefault("url", dataSourceProperties.get("URL") + "\n" +
-            "See META-INF/conf/" + fileName + " for details. \n" + "\n\n"
+            "See META-INF/config/" + fileName + " for details. \n" + "\n\n"
             )
         );
         return dataSourceProperties;

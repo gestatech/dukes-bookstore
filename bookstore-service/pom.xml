@@ -25,8 +25,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>be.gestatech</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>bookstore-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
         <dependency>
             <groupId>org.omnifaces</groupId>
@@ -35,6 +39,10 @@
         <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnipersistence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnisettings</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

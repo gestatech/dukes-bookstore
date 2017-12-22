@@ -4,12 +4,24 @@ import javax.validation.constraints.NotNull;
 
 public class Credentials {
 
+    @NotNull
+    private Long id;
+
     private User user;
 
-    private @NotNull byte[] passwordHash;
+    @NotNull
+    private byte[] passwordHash;
 
-    private @NotNull
-    byte[] salt;
+    @NotNull
+    private byte[] salt;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public User getUser() {
         return user;

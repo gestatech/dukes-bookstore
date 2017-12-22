@@ -2,6 +2,8 @@ package be.gestatech.bookstore.service.config.auth;
 
 import be.gestatech.bookstore.domain.auth.entity.User;
 import be.gestatech.bookstore.service.api.UserService;
+import be.gestatech.bookstore.service.exception.EmailNotVerifiedException;
+import be.gestatech.bookstore.service.exception.InvalidCredentialsException;
 
 import javax.inject.Inject;
 import javax.security.enterprise.credential.CallerOnlyCredential;
@@ -24,7 +26,7 @@ public class BookStoreKickoffIdentityStore implements IdentityStore {
             if (credential instanceof UsernamePasswordCredential) {
                 String email = ((UsernamePasswordCredential) credential).getCaller();
                 String password = ((UsernamePasswordCredential) credential).getPasswordAsString();
-                return validate(userService.getByEmailAndPassword(email, password));
+                return validate(userService.findByEmailAndPassword(email, password));
             }
             if (credential instanceof CallerOnlyCredential) {
                 String email = ((CallerOnlyCredential) credential).getCaller();

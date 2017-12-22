@@ -1,4 +1,4 @@
-package be.gestatech.bookstore.web.view.jsf;
+package be.gestatech.bookstore.web.view.view;
 
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;

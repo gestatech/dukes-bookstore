@@ -10,8 +10,6 @@ import org.omnifaces.persistence.service.BaseEntityService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.time.Instant;
 
 import static java.time.Instant.now;
@@ -22,12 +20,8 @@ import static org.omnifaces.utils.security.MessageDigests.digest;
 @Stateless
 public class LoginTokenServiceBean extends BaseEntityService<Long, LoginToken> implements LoginTokenService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @EJB
     private UserService userService;
-
 
     @Override
     public String generate(String email, String remoteAddress, String description, TokenType tokenType) {
@@ -38,7 +32,7 @@ public class LoginTokenServiceBean extends BaseEntityService<Long, LoginToken> i
     @Override
     public String generate(String email, String ipAddress, String description, TokenType tokenType, Instant expiration) {
         String rawToken = randomUUID().toString();
-        User user = userService.getByEmail(email).orElseThrow(InvalidUsernameException::new);
+        User user = userService.findByEmail(email).orElseThrow(InvalidUsernameException::new);
 
         LoginToken loginToken = new LoginToken();
         loginToken.setTokenHash(digest(rawToken, MESSAGE_DIGEST_ALGORITHM));
@@ -53,11 +47,11 @@ public class LoginTokenServiceBean extends BaseEntityService<Long, LoginToken> i
 
     @Override
     public void remove(String loginToken) {
-        entityManager.createNamedQuery("LoginToken.remove").setParameter("tokenHash", digest(loginToken, MESSAGE_DIGEST_ALGORITHM)).executeUpdate();
+        createNamedQuery("LoginToken.remove").setParameter("tokenHash", digest(loginToken, MESSAGE_DIGEST_ALGORITHM)).executeUpdate();
     }
 
     @Override
     public void removeExpired() {
-        entityManager.createNamedQuery("LoginToken.removeExpired").executeUpdate();
+        createNamedQuery("LoginToken.removeExpired").executeUpdate();
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 @Stateless
 public class ProgrammingLanguageServiceBean implements ProgrammingLanguageService {
+
     @Override
     public List<ProgrammingLanguage> getAll() {
         List<ProgrammingLanguage> result = new ArrayList<>();

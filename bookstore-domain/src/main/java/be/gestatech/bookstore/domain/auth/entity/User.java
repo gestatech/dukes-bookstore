@@ -22,6 +22,10 @@ import static javax.persistence.FetchType.LAZY;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.TRANSACTIONAL;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "User.findByEmail", query = "SELECT user FROM User user WHERE user.email = :email"),
+    @NamedQuery(name = "User.getByLoginToken", query = "SELECT user FROM User user JOIN user.loginTokens loginToken JOIN FETCH user.loginTokens WHERE loginToken.tokenHash = :tokenHash AND loginToken.type = :tokenType AND loginToken.expiration > CURRENT_TIMESTAMP")
+})
 public class User extends TimestampedEntity<Long> {
 
     private static final long serialVersionUID = 6016261369255337317L;

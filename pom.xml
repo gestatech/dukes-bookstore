@@ -9,10 +9,6 @@
     <name>bookstore</name>
     <url>https://github.com/gestatech/duckes-bookstore</url>
 
-    <prerequisites>
-        <maven>3.0.0</maven>
-    </prerequisites>
-
     <scm>
         <url>https://github.com/gestatech/duckes-bookstore</url>
         <connection>scm:git:git@github.com:gestatech/duckes-bookstore.git</connection>
@@ -39,7 +35,8 @@
         <javax.security.version>1.0</javax.security.version>
 
         <!-- Runtime dependencies -->
-        <hibernate.core.version>5.2.12.Final</hibernate.core.version>
+        <eclipselink.version>2.7.0</eclipselink.version>
+        <hibernate.version>5.2.12.Final</hibernate.version>
         <primefaces.version>6.1</primefaces.version>
         <omnisecurity.cdi.auth.events.undertow.version>10.0.0.Final-u1</omnisecurity.cdi.auth.events.undertow.version>
         <omnifaces.version>2.6.6</omnifaces.version>
@@ -129,9 +126,10 @@
 
     <modules>
         <module>bookstore-ear</module>
-        <module>bookstore-web</module>
-        <module>bookstore-service</module>
         <module>bookstore-domain</module>
+        <module>bookstore-service</module>
+        <module>bookstore-web</module>
+        <module>bookstore-jsf</module>
     </modules>
 
     <dependencyManagement>
@@ -150,16 +148,30 @@
 
             <!-- Internal dependencies -->
             <dependency>
-                <groupId>be.gestatech</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>bookstore-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>be.gestatech</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>bookstore-service</artifactId>
                 <version>${project.version}</version>
+                <type>ejb</type>
             </dependency>
-
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>bookstore-web</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>bookstore-jsf</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+                <scope>compile</scope>
+            </dependency>
             <!-- Runtime dependencies -->
             <dependency>
                 <groupId>org.primefaces</groupId>
@@ -167,9 +179,23 @@
                 <version>${primefaces.version}</version>
             </dependency>
             <dependency>
+                <!-- for JPA, use hibernate-entitymanager instead of hibernate-core -->
                 <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${hibernate.core.version}</version>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-ehcache</artifactId>
+                <version>${hibernate.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>eclipselink</artifactId>
+                <version>${eclipselink.version}</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.omnifaces</groupId>
@@ -336,6 +362,14 @@
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>${maven.dependency.plugin.version}</version>
                     <extensions>true</extensions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven.javadoc.plugin.version}</version>
+                    <configuration>
+                        <additionalparam>-Xdoclint:none</additionalparam>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.wildfly.plugins</groupId>

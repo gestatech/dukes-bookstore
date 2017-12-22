@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>be.gestatech</groupId>
-    <artifactId>bookstore-web</artifactId>
+    <artifactId>bookstore-jsf</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>bookstore-web</name>
+    <name>bookstore-jsf</name>
 
     <build>
         <finalName>${project.artifactId}-${project.version}</finalName>
@@ -51,10 +51,8 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>bookstore-service</artifactId>
+            <artifactId>bookstore-web</artifactId>
             <version>${project.version}</version>
-            <type>ejb</type>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.omnifaces</groupId>

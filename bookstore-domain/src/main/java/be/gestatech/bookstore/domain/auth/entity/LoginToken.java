@@ -13,6 +13,10 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.TRANSACTIONAL;
 
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "LoginToken.remove", query = "DELETE FROM LoginToken loginToken WHERE loginToken.tokenHash = :tokenHash"),
+    @NamedQuery(name = "LoginToken.removeExpired", query = "DELETE FROM LoginToken loginToken WHERE loginToken.expiration < CURRENT_TIMESTAMP")
+})
 public class LoginToken extends BaseEntity<Long> {
 
     private static final long serialVersionUID = 2139934840625938740L;

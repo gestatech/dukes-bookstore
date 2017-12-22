@@ -33,20 +33,20 @@ public class StartupBean {
     }
 
     private void setupTestUsers() {
-        if (!userService.findByEmail("admin@kickoff.example.org").isPresent()) {
+        if (!userService.findByEmail("admin@gestatech.be").isPresent()) {
             User user = new User();
             user.setFirstName("Test");
             user.setLastName("Admin");
-            user.setEmail("admin@kickoff.example.org");
+            user.setEmail("admin@gestatech.be");
             user.setGroups(asList(ADMIN, USER));
             userService.registerUser(user, "passw0rd");
         }
 
-        if (!userService.findByEmail("user@kickoff.example.org").isPresent()) {
+        if (!userService.findByEmail("user@gestatech.be").isPresent()) {
             User user = new User();
             user.setFirstName("Test");
             user.setLastName("User");
-            user.setEmail("user@kickoff.example.org");
+            user.setEmail("user@gestatech.be");
             user.setGroups(asList(USER));
             userService.registerUser(user, "passw0rd");
         }

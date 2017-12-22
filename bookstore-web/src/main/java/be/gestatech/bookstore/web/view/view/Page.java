@@ -1,4 +1,4 @@
-package be.gestatech.bookstore.web.view.jsf;
+package be.gestatech.bookstore.web.view.view;
 
 import org.omnifaces.config.WebXml;
 
@@ -26,7 +26,7 @@ public class Page {
     private boolean home;
 
     public Page() {
-        // Keep default c'tor alive for CDI.
+        // Keep default constructor alive for CDI.
     }
 
     private Page(String path) {

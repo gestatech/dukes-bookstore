@@ -2,7 +2,8 @@ package be.gestatech.bookstore.web.view.producer;
 
 import be.gestatech.bookstore.service.api.UserService;
 import be.gestatech.bookstore.web.view.dto.auth.User;
-import be.gestatech.bookstore.web.view.producer.dto.ActiveUser;
+import be.gestatech.bookstore.web.view.dto.user.ActiveUser;
+import be.gestatech.bookstore.web.view.mapper.auth.UserMapper;
 import org.omnifaces.security.AuthenticatedEvent;
 import org.omnifaces.security.LoggedOutEvent;
 
@@ -28,6 +29,9 @@ public class ActiveUserProducer implements Serializable {
     private User activeUser;
 
     @Inject
+    private UserMapper userMapper;
+
+    @Inject
     private UserService userService;
 
     @Produces
@@ -39,10 +43,10 @@ public class ActiveUserProducer implements Serializable {
 
     public void onAuthenticated(@Observes AuthenticatedEvent event) {
         if (Objects.isNull(activeUser) || !event.getUserPrincipal().getName().equals(activeUser.getEmail())) {
-            activeUser = userService.getActiveUser();
-            if (!Objects.isNull(activeUser)) {
+            activeUser = userMapper.mapToWeb(userService.getActiveUser());
+            if (Objects.nonNull(activeUser)) {
                 activeUser.setLastLogin(now());
-                userService.update(activeUser);
+                userService.update(userMapper.mapToBusiness(activeUser));
             }
             refreshInjectedActiveUsers();
         }

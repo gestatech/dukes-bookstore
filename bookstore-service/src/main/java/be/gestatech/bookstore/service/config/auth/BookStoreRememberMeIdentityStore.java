@@ -2,6 +2,7 @@ package be.gestatech.bookstore.service.config.auth;
 
 import be.gestatech.bookstore.domain.auth.entity.TokenType;
 import be.gestatech.bookstore.domain.auth.entity.User;
+import be.gestatech.bookstore.service.api.LoginTokenService;
 import be.gestatech.bookstore.service.api.UserService;
 import org.omnifaces.util.Servlets;
 
